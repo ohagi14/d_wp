@@ -1,0 +1,139 @@
+@use "variables" as *;
+@use "sass:math";
+// デバイスが横向き時にスタイルを当てる
+@mixin landscape() {
+	@media (orientation: landscape) {
+		@content;
+	}
+}
+/*
+アニメーション
+*/
+@mixin animation(
+	$name,
+	$duration: 1s,
+	//間隔
+	$timing-function: ease,
+	//タイミング関数
+	$delay: 0s,
+	//遅れ
+	$iteration-count: 1,
+	//反復回数
+	$direction: normal,
+	//方向（normal,reverse,alternate,alternate-reverse）
+	$fill-mode: forwards //フィルモード（none,forwards,backwards.both）
+) {
+	animation: {
+		name: $name;
+		duration: $duration;
+		timing-function: $timing-function;
+		delay: $delay;
+		iteration-count: $iteration-count;
+		direction: $direction;
+		fill-mode: $fill-mode;
+	}
+}
+
+/*
+よく使用する
+ベースのcontainerに設定
+container(1000,40)
+*/
+@function container($max-width, $padding-x) {
+	$width: math.div($max-width, 16);
+	$px: math.div($padding-x, 16);
+	@return min(100% - #{$px}rem, #{$width}rem);
+}
+
+// レスポンシブに合わせてフォントを自動調整
+@function to-rem($px) {
+	$rem: math.div($px, $root-font-size) * 1rem;
+	@return $rem;
+}
+@function fluid-text($min-px, $max-px, $min-bp: $default-min-bp, $max-bp: $default-max-bp) {
+	$slope: math.div($max-px - $min-px, $max-bp - $min-bp);
+	$slope-vw: $slope * 100;
+	$intercept-rems: to-rem($min-px - $slope * $min-bp);
+	$min-rems: to-rem($min-px);
+	$max-rems: to-rem($max-px);
+	@return clamp(#{$min-rems}, #{$slope-vw}vw + #{$intercept-rems}, #{$max-rems});
+}
+
+// color|色・背景・線
+@mixin color($v: red) {
+	.c-#{$v} {
+		color: var(--#{$v});
+	}
+	.bg-#{$v} {
+		background: var(--#{$v});
+	}
+	.bd-#{$v} {
+		border-color: var(--#{$v});
+	}
+}
+// 蛍光マーカー風
+@mixin mk($v: yellow) {
+	.mk-#{$v} {
+		background: linear-gradient(transparent 70%, var(--#{$v}) 70%);
+	}
+}
+
+/*
+擬似要素（::beforeまたは::after）のスタイルを定義するミックスイン
+使用例：
+.element {
+  @include p-base(
+    $which: after,
+    $top: 10px,
+    $left: 20px,
+    $content: "''",
+    $position: fixed,
+    $width: 50px,
+    $height: 50px,
+    $display: inline-block
+  ) {
+    background-color: red;
+  }
+}
+.element::after に対してスタイルを適用しています。位置が top: 10px; left: 20px; に設定され、固定表示で、幅と高さがそれぞれ50pxになり、背景色が赤になります。
+*/
+@mixin p-base(
+	$which: before,
+	$top: 0,
+	$left: 0,
+	$content: "",
+	$position: absolute,
+	$width: 100%,
+	$height: 100%,
+	$display: block
+) {
+	&::#{$which} {
+		display: $display;
+		content: $content;
+		position: $position;
+		top: $top;
+		left: $left;
+		width: $width;
+		height: $height;
+		@content;
+	}
+}
+
+// font-size: to-rem(16px) -> 1rem
+@function to-rem($px) {
+	$rem: math.div($px, $root-font-size) * 1rem;
+	@return $rem;
+}
+@function to-em($px, $self-px: $root-font-size) {
+	$em: math.div($px, $self-px) * 1em;
+	@return $em;
+}
+// レスポンシブに合わせてフォントを自動調整
+@function fluid-text($min-px, $max-px, $min-bp: $default-min-bp, $max-bp: $default-max-bp) {
+	$slope: math.div($max-px - $min-px, $max-bp - $min-bp);
+	$slope-vw: $slope * 100;
+	$intercept-rems: to-rem($min-px - $slope * $min-bp);
+	$min-rems: to-rem($min-px);
+	$max-rems: to-rem($max-px);
+	@return clamp(#{$min-rems}, #{$slope-vw}vw + #{$intercept-rems}, #{$max-rems});
+}

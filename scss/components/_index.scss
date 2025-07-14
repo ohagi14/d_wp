@@ -1,0 +1,44 @@
+@use "../_global/" as *;
+@use "title" as *;
+@use "button" as *;
+@use "logoSlider" as *;
+
+.container {
+	width: container(1200, 40); // 左右に余白 > 20
+	margin-inline: auto;
+}
+.mx {
+	margin-inline: auto;
+}
+
+// テキスト
+.c-link {
+	transition: all 0.3s;
+	display: inline-block;
+	position: relative;
+	&._link1 {
+		color: white;
+		&::after {
+			content: "";
+			width: 0;
+			height: 2px;
+			background: white;
+			position: absolute;
+			bottom: -4px;
+			left: 50%;
+			transform: translateX(-50%);
+			transition: all 0.3s;
+		}
+		&:hover {
+			// opacity: 0.8;
+			&::after {
+				width: 100%;
+			}
+		}
+	}
+	&._op {
+		&:hover {
+			opacity: 0.8;
+		}
+	}
+}
