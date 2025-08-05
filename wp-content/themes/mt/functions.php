@@ -2,7 +2,7 @@
 function my_theme_scripts()
 {
 	// Google Fonts
-	wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap', array(), null);
+	wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet', array(), null);
 
 	// メインのCSS
 	wp_enqueue_style('main-style', get_template_directory_uri() . '/assets/styles/main.min.css', array(), '1.0.0');

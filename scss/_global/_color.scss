@@ -16,52 +16,20 @@ sub
 */
 $header-bar: #100f0d;
 $c-bg: #f5f1e9;
-$c-txt: #100F0D;
-$c-main: #D9CDB5;
-$c-border: #EDEDED;
+$c-txt: #100f0d;
+$c-main: #d9cdb5;
+$c-border: #ededed;
 
 :root {
-	--main: #D9CDB5;
+	--main: #d9cdb5;
 	--sub: #f9d902;
 	--text: #952141;
-	--border: #b10031;
-	--rb1: #b10131;
-	--rb2: #faf2f2;
-	--sub: #f3e962;
-
-	--c-btnMain: white;
-	--bg-btnMain: #00a085;
-	--c-btnSub: white;
-	--bg-btnSub: #007ca0;
 
 	--link: #106fc8;
-
-	--b1: #f4f4f4;
-	--b2: #9b9b9b;
-	--b3: #e5e3e3;
-	--w: #fff;
-
-	--green1: #00a085;
-
-	// form
-	--bInput: #b6cfe9;
-
-	//背景色展開
-	--g1: #eef2f6;
-
-	--g2: #edebeb;
-	--g3: #7b7b7b;
-	--g4: #707070;
-
-	//----------
-	//<base作成>
 
 	//-- タグに関して
 	--required: #ef6363; // 必須
 	--any: #106fc8; // 任意
-
-	//-- タイトルコンポネ
-	// --ttl-bd: #eef2f6;
 }
 @include color(main);
 
